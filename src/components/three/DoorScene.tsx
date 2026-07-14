@@ -14,6 +14,7 @@ interface DoorSceneProps {
   targetOpenDeg: number;
   hovered: boolean;
   followCursor?: boolean;
+  manualRotationY?: number;
   onPointerEnter?: () => void;
   onPointerLeave?: () => void;
   onClick?: () => void;

@@ -20,6 +20,7 @@ interface DoorRigProps {
   targetOpenDeg: number;
   hovered: boolean;
   followCursor?: boolean;
+  manualRotationY?: number;
   onPointerEnter?: () => void;
   onPointerLeave?: () => void;
   onClick?: () => void;
@@ -40,6 +41,7 @@ export function DoorRig({
   targetOpenDeg,
   hovered,
   followCursor = true,
+  manualRotationY = 0,
   onPointerEnter,
   onPointerLeave,
   onClick,
@@ -59,11 +61,16 @@ export function DoorRig({
   const panelColor = useMemo(() => finishColor.clone().offsetHSL(0, 0, isDark ? 0.03 : -0.035), [finishColor, isDark]);
 
   useFrame((state, delta) => {
-    if (houseGroup.current && followCursor) {
-      const targetRotY = state.pointer.x * 0.22;
-      const targetRotX = -state.pointer.y * 0.08;
-      houseGroup.current.rotation.y = lerp(houseGroup.current.rotation.y, targetRotY, 1 - Math.pow(0.001, delta));
-      houseGroup.current.rotation.x = lerp(houseGroup.current.rotation.x, targetRotX, 1 - Math.pow(0.001, delta));
+    if (houseGroup.current) {
+      if (followCursor) {
+        const targetRotY = state.pointer.x * 0.22;
+        const targetRotX = -state.pointer.y * 0.08;
+        houseGroup.current.rotation.y = lerp(houseGroup.current.rotation.y, targetRotY, 1 - Math.pow(0.001, delta));
+        houseGroup.current.rotation.x = lerp(houseGroup.current.rotation.x, targetRotX, 1 - Math.pow(0.001, delta));
+      } else {
+        houseGroup.current.rotation.y = lerp(houseGroup.current.rotation.y, manualRotationY, 1 - Math.pow(0.0005, delta));
+        houseGroup.current.rotation.x = lerp(houseGroup.current.rotation.x, 0, 1 - Math.pow(0.001, delta));
+      }
     }
 
     const hoverBoost = hovered ? 6 : 0;
