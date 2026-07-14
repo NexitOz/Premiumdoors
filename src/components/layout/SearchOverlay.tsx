@@ -20,10 +20,6 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (!open) setQuery("");
-  }, [open]);
-
-  useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }
@@ -43,7 +39,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
   }, [query]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={() => setQuery("")}>
       {open && (
         <motion.div
           initial={{ opacity: 0 }}

@@ -49,8 +49,8 @@ export function DoorGlyph({ hex, system, glass = false, className }: DoorGlyphPr
 
       {system === "classic" && (
         <g>
-          <Panel gid={gid} x={52} y={62} w={216} h={300} bevOut={`url(#${gid}-bevOut)`} inner={panel} />
-          <Panel gid={gid} x={52} y={438} w={216} h={300} bevOut={`url(#${gid}-bevOut)`} inner={panel} />
+          <Panel x={52} y={62} w={216} h={300} bevOut={`url(#${gid}-bevOut)`} inner={panel} />
+          <Panel x={52} y={438} w={216} h={300} bevOut={`url(#${gid}-bevOut)`} inner={panel} />
         </g>
       )}
 
@@ -101,7 +101,6 @@ export function DoorGlyph({ hex, system, glass = false, className }: DoorGlyphPr
 }
 
 function Panel({
-  gid,
   x,
   y,
   w,
@@ -109,7 +108,6 @@ function Panel({
   bevOut,
   inner,
 }: {
-  gid: string;
   x: number;
   y: number;
   w: number;

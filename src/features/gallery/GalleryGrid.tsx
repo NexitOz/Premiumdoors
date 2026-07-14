@@ -10,9 +10,11 @@ export function GalleryGrid() {
   const [selected, setSelected] = useState<InteriorItem | null>(null);
 
   useEffect(() => {
+    // Syncing from the URL (an external system) on mount — not derivable during render.
     const hash = window.location.hash.replace("#", "");
     if (hash) {
       const found = INTERIORS.find((i) => i.id === hash);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (found) setSelected(found);
     }
   }, []);

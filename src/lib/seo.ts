@@ -21,13 +21,27 @@ export function organizationJsonLd() {
   };
 }
 
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.fullName,
+    url: siteConfig.url,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteConfig.url}/catalog?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
 export function productJsonLd(door: DoorModel, url: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: door.name,
     description: door.description,
-    image: `${siteConfig.url}/og-image.png`,
+    image: `${siteConfig.url}/opengraph-image`,
     sku: door.slug,
     brand: { "@type": "Brand", name: siteConfig.fullName },
     offers: {

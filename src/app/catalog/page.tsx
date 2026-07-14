@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CatalogView } from "@/features/catalog/CatalogView";
 import { DOORS, COLLECTIONS } from "@/data/doors";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Каталог межкомнатных дверей",
@@ -12,9 +13,26 @@ export const metadata: Metadata = {
   alternates: { canonical: "/catalog" },
 };
 
+function itemListJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: DOORS.map((door, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${siteConfig.url}/product/${door.slug}`,
+      name: door.name,
+    })),
+  };
+}
+
 export default function CatalogPage() {
   return (
     <div className="py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd()) }}
+      />
       <Container>
         <SectionHeading
           eyebrow="Каталог"

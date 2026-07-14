@@ -38,8 +38,8 @@ export function renderDoorTexture(door: DoorModel, finishHex: string, handleHex:
   ctx.fillRect(TEX_W - 16, 0, 16, TEX_H);
 
   if (door.system === "classic") {
-    drawPanel(ctx, 52, 62, 216, 300, bevOut, panel);
-    drawPanel(ctx, 52, 438, 216, 300, bevOut, panel);
+    drawPanel(ctx, 52, 62, 216, 300, bevOut, bevIn, panel);
+    drawPanel(ctx, 52, 438, 216, 300, bevOut, bevIn, panel);
   } else if (door.system === "tsarga") {
     for (const y of [192, 396, 592]) {
       ctx.fillStyle = shade(finishHex, dark ? 0.2 : -0.18) + "8C";
@@ -81,9 +81,20 @@ export function renderDoorTexture(door: DoorModel, finishHex: string, handleHex:
   return canvas;
 }
 
-function drawPanel(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, bevOut: string, inner: string) {
+function drawPanel(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  bevOut: string,
+  bevIn: string,
+  inner: string
+) {
   ctx.fillStyle = bevOut;
   ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = bevIn;
+  ctx.fillRect(x + 9, y + 9, w - 18, h - 18);
   ctx.fillStyle = inner + "80";
   ctx.fillRect(x + 16, y + 16, w - 32, h - 32);
 }
