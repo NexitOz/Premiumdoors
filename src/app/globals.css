@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   PREMIUM DOORS — design tokens
+   Холодная монохромная палитра + один акцент (браш-бронза).
+   ========================================================================== */
+
+:root {
+  /* base surfaces */
+  --color-paper: #ffffff;
+  --color-mist: #f4f5f7;
+  --color-mist-2: #eceef1;
+  --color-mist-3: #e4e6ea;
+  --color-line: #e1e4e8;
+  --color-line-soft: #ebedf0;
+
+  /* ink scale */
+  --color-graphite: #15171b;
+  --color-graphite-soft: #565d66;
+  --color-graphite-faint: #9aa1a9;
+  --color-graphite-mist: #c7ccd1;
+
+  /* dark surfaces (footer, hero panels, night sections) */
+  --color-obsidian: #0e1013;
+  --color-obsidian-2: #17191d;
+  --color-obsidian-line: rgba(244, 245, 247, 0.1);
+
+  /* single accent — brushed bronze */
+  --color-accent: #a3793f;
+  --color-accent-soft: #c7a06a;
+  --color-accent-dim: #8a6635;
+
+  /* shadows: ambient + contact, layered */
+  --shadow-xs: 0 1px 2px rgba(15, 17, 20, 0.05), 0 1px 1px rgba(15, 17, 20, 0.04);
+  --shadow-sm: 0 2px 6px rgba(15, 17, 20, 0.06), 0 8px 20px -10px rgba(15, 17, 20, 0.12);
+  --shadow-md: 0 4px 12px rgba(15, 17, 20, 0.07), 0 18px 40px -16px rgba(15, 17, 20, 0.18);
+  --shadow-lg: 0 8px 20px rgba(15, 17, 20, 0.08), 0 32px 70px -24px rgba(15, 17, 20, 0.24);
+  --shadow-xl: 0 16px 32px rgba(15, 17, 20, 0.1), 0 56px 110px -32px rgba(15, 17, 20, 0.32);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(15, 17, 20, 0.05);
+
+  --ease-premium: cubic-bezier(0.22, 0.9, 0.32, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --container-max: 1320px;
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-mist: var(--color-mist);
+  --color-mist-2: var(--color-mist-2);
+  --color-mist-3: var(--color-mist-3);
+  --color-line: var(--color-line);
+  --color-line-soft: var(--color-line-soft);
+
+  --color-graphite: var(--color-graphite);
+  --color-graphite-soft: var(--color-graphite-soft);
+  --color-graphite-faint: var(--color-graphite-faint);
+  --color-graphite-mist: var(--color-graphite-mist);
+
+  --color-obsidian: var(--color-obsidian);
+  --color-obsidian-2: var(--color-obsidian-2);
+
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-dim: var(--color-accent-dim);
+
+  --font-display: var(--font-unbounded);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-jetbrains);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-mist);
+  color: var(--color-graphite);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+::selection {
+  background: var(--color-graphite);
+  color: var(--color-mist);
+}
+
+/* thin premium scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite-mist);
+  border-radius: 99px;
+  border: 2px solid var(--color-mist);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-graphite-faint);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* film grain — тончайший шум поверх всего сайта */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.glass-panel {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.55));
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel-dark {
+  background: linear-gradient(160deg, rgba(244, 245, 247, 0.08), rgba(244, 245, 247, 0.02));
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid rgba(244, 245, 247, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
